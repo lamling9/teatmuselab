@@ -435,12 +435,12 @@ namespace Muse21 {
 			temp_pin_value = pins.analogReadPin(temp_pin)
 			if(cache == 0 && temp_pin_value > Threshold){
 				if(temp_lasttime > 316){temp_lasttime = 316};
-				return (RPC)/((temp_lasttime*9+control.millis()-time_startingTime)/10/1000);
-			} else if (cache == 1 && temp_pin_value <= Threshold){
+				return (RPC)/((temp_lasttime*(1+3000/temp_lasttime)+control.millis()-time_startingTime)/(2+3000/temp_lasttime)/1000);
+			} elseif (cache == 1 && temp_pin_value <= Threshold){
 				if(temp_lasttime > 316){temp_lasttime = 316};
-				return (RPC)/((temp_lasttime*9+control.millis()-time_startingTime)/10/1000);
-			} else if (control.millis()-time_startingTime >15){
-				return (RPC)/((temp_lasttime+(control.millis()-time_startingTime))/1000) ;
+				return (RPC)/((temp_lasttime*(1+3000/temp_lasttime)+control.millis()-time_startingTime)/(2+3000/temp_lasttime)/1000);
+			} elseif (control.millis()-time_startingTime >15){
+				return (RPC)/((temp_lasttime+(control.millis()-time_startingTime)/1000) ;
 			}
         }
 		return 0;
